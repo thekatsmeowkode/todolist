@@ -1,4 +1,4 @@
-import { project } from './project-constructor.js'
+import { Project } from './project-constructor.js'
 
 const addProjectButton = document.querySelector('.add-project-button')
 const addProjectPopup = document.querySelector('#add-box')
@@ -12,8 +12,10 @@ export function domEvents() {
     })
 
     addProjectConfirm.addEventListener('click', () => {
-        let projectName = document.querySelector('#project-name').value
-        project(projectName)
+        let projectName = document.querySelector('#project-name').value;
+        let newProject = new Project(projectName)
+        newProject.add(projectName)
+        console.log(newProject.projects)
     }
         ) 
     }

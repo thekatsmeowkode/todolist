@@ -1,8 +1,11 @@
-function project(name) {
-    let projects = []
+import { domEvents } from "./dom-events"
 
-    return {
-        projects: projects,
-        name: name,
-        add(name) {projects.push(name)}}
+export class Project {
+    constructor(name) {
+        this.name = name
+        this.projects = []
+    }
+
+    add(name) {
+        this.projects.push(name)}
 }
