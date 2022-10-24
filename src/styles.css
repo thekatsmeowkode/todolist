@@ -61,9 +61,30 @@
     margin:1em;
 }
 
+.add-project-button {
+    margin:1em;
+    padding: 1em;
+}
+
 .main-content {
     width: 75%;
     display:flex;
     flex-direction:column;
     justify-content: flex-start;
+    align-items: center;
+}
+
+.task-list {
+    display:flex;
+    justify-content: space-between;
+    width:70%;
+    padding:1em;
+    margin:1em;
+}
+
+.add-task-button {
+    width:15%;
+    border-radius: 8%;
+    padding:1em;
+    margin:1em;
 }
