@@ -25,4 +25,15 @@
 .sidebar {
     width:25%;
     background-color:#7ffff2;
+    padding:1em;
+}
+
+.project-button {
+    border:none;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    width:80%;
+    padding: 1em;
 }
