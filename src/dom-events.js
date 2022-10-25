@@ -10,6 +10,10 @@ const addProjectConfirm = document.querySelector('.popup-add')
 const addTaskButton = document.querySelector('.add-task-button')
 const taskForm = document.querySelector('.task-form')
 const taskSubmitButton = document.querySelector('#task-submit')
+const closeButtons = document.getElementsByClassName('list-close-button')
+const taskButtons = document.getElementsByClassName('task-list')
+console.log(taskButtons)
+// const tasks = Store.getTasks()
 
 export function domEvents() {
     addProjectButton.addEventListener('click', () => {
@@ -50,6 +54,21 @@ export function domEvents() {
         UI.addTaskDisplay(task)
     }
     )
+    
+    //convoluted way to access dynamically created task elements
+    document.body.addEventListener( 'click', function ( event ) {
+            if (event.target.classList.contains('list-close-button' )) 
+                { let name = event.target.previousElementSibling.previousElementSibling.children[1].textContent
+                Store.removeTask(name);
+                event.target.parentNode.remove()
+            };
+            if (event.target.classList.contains('list-edit-button')) {
+                console.log('edit')
+            }
+            if (event.target.id == 'task-list-task-name') {
+                console.log('view status')
+            }
+          } );
 
     
-    }
+}

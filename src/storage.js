@@ -15,11 +15,10 @@ export class Store {
 
     static removeTask(name) {
         const tasks = Store.getTasks()
-        tasks.forEach = (task, index) => {
+        tasks.forEach((task, index) => {
             if (task.name === name) {
-                books.splice(index, 1)
-            }
-        localStorage.getItem('tasks', JSON.stringify(tasks))
-        }
+                tasks.splice(index, 1)
+            }})
+        localStorage.setItem('tasks', JSON.stringify(tasks))
     }
 }

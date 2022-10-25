@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="../src/styles.css">
     <script defer src="../src/solid.js"></script>
     <script defer src="../src/fontawesome.js"></script>
-</head>
-<body>
     <script src="./main.js" defer></script>
+</head>
+
+<body>
     <div class="header">
         <h1 class="title">To-Do List</h1>
     </div>
@@ -58,24 +60,23 @@
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         <div class="main-content">
-            <div class="main-header">
-                <span>Header</span>
-            </div>
-            <button class="task-list">
-                    <div class="task-list-text">
-                        <input type="checkbox" class="checkbox">
-                        <!-- <i class="fa-solid fa-vector-square"></i> -->
-                        <span>task</span>
-                    </div>
-                    <div class="list-close-button">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-            </button>
+            <!-- <button class="task-list">
+                <div class="task-list-text">
+                    <input type="checkbox" class="checkbox">
+                    <span id="task-list-task-name">task</span>
+                </div>
+                <div class="list-edit-button">
+                    <i class="fa-solid fa-pen-nib"></i>
+                </div>
+                <a class="list-close-button">
+                    <i class="fa-solid fa-xmark"></i>
+                </a>
+            </button> -->
             <button class="add-task-button">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Add Task</span>
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Task</span>
             </button>
             <div class="task-form">
                 <form class="popup-form">
@@ -87,7 +88,7 @@
                     <div id="radio">
                         <input type="radio" name="priority" id="low" value="low">
                         <label for="low">Low</label>
-                    </div> 
+                    </div>
                     <div></div>
                     <div id="radio">
                         <input type="radio" name="priority" value="medium" id="medium">
@@ -106,4 +107,5 @@
         </div>
     </div>
 </body>
+
 </html>
