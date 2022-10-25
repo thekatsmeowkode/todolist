@@ -1,3 +1,4 @@
+import { Store } from "./storage"
 
 export class UI {
     static addTaskDisplay(task) {
@@ -18,7 +19,12 @@ export class UI {
         </div>`
     }
 
-    static
+    static displayAllTasks() {
+        let storage = Store.getTasks()
+        storage.forEach((task) => {
+            UI.addTaskDisplay(task)
+        })
+    }
 }
 
 {/* <button class="task-list">

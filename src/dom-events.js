@@ -49,6 +49,7 @@ export function domEvents() {
         taskForm.style.visibility = 'hidden'
         UI.addTaskDisplay(task)
     }
-    
     )
+
+    
     }
