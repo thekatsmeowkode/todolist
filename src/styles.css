@@ -1,6 +1,7 @@
 * {
     margin:0;
     padding:0;
+    font-family:'Montserrat'
 }
 
 .header {
@@ -14,7 +15,6 @@
 .title {
     margin-left: 2em;
     color:white;
-    font-family:"Montserrat"
 }
 
 .container {
@@ -129,6 +129,7 @@
     border-radius: 8%;
     padding:1em;
     margin:1em;
+    visibility:visible;
 }
 
 #add-box {
@@ -144,4 +145,29 @@
 
 .popup-add, .popup-cancel {
     padding: .3em
+}
+
+.popup-form {
+    display:grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em;
+}
+
+label {
+    font-weight:bold;
+}
+
+#radio {
+    font-size:smaller
+}
+
+.task-form {
+    visibility:hidden;
+}
+
+#task-submit {
+    width:50%;
+    margin-top: 2em;
+    padding:1em;
 }

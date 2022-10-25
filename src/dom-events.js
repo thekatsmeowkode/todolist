@@ -3,7 +3,8 @@ import { Project } from './project-constructor.js'
 const addProjectButton = document.querySelector('.add-project-button')
 const addProjectPopup = document.querySelector('#add-box')
 const addProjectConfirm = document.querySelector('.popup-add')
-
+const addTaskButton = document.querySelector('.add-task-button')
+const taskForm = document.querySelector('.task-form')
 
 export function domEvents() {
     addProjectButton.addEventListener('click', () => {
@@ -18,4 +19,9 @@ export function domEvents() {
         console.log(newProject.projects)
     }
         ) 
+
+    addTaskButton.addEventListener('click', () => {
+        addTaskButton.style.display = 'none'
+        taskForm.style.visibility='visible'
+    })
     }
