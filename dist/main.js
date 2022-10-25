@@ -146,7 +146,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"domEvents\": () => (/* binding */ domEvents)\n/* harmony export */ });\n/* harmony import */ var _project_constructor_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./project-constructor.js */ \"./src/project-constructor.js\");\n\n\nconst addProjectButton = document.querySelector('.add-project-button')\nconst addProjectPopup = document.querySelector('#add-box')\nconst addProjectConfirm = document.querySelector('.popup-add')\nconst addTaskButton = document.querySelector('.add-task-button')\nconst taskForm = document.querySelector('.task-form')\n\nfunction domEvents() {\n    addProjectButton.addEventListener('click', () => {\n        addProjectButton.style.display = 'none'\n        addProjectPopup.style.visibility= 'visible'\n    })\n\n    addProjectConfirm.addEventListener('click', () => {\n        let projectName = document.querySelector('#project-name').value;\n        let newProject = new _project_constructor_js__WEBPACK_IMPORTED_MODULE_0__.Project(projectName)\n        newProject.add(projectName)\n        console.log(newProject.projects)\n    }\n        ) \n\n    addTaskButton.addEventListener('click', () => {\n        addTaskButton.style.display = 'none'\n        taskForm.style.visibility='visible'\n    })\n    }\n\n//# sourceURL=webpack://todolist/./src/dom-events.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"domEvents\": () => (/* binding */ domEvents)\n/* harmony export */ });\n/* harmony import */ var _projects_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./projects.js */ \"./src/projects.js\");\n/* harmony import */ var _tasks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tasks.js */ \"./src/tasks.js\");\n/* harmony import */ var _storage_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./storage.js */ \"./src/storage.js\");\n\n\n\n\nconst addProjectButton = document.querySelector('.add-project-button')\nconst addProjectPopup = document.querySelector('#add-box')\nconst addProjectConfirm = document.querySelector('.popup-add')\nconst addTaskButton = document.querySelector('.add-task-button')\nconst taskForm = document.querySelector('.task-form')\nconst taskSubmitButton = document.querySelector('#task-submit')\n\nfunction domEvents() {\n    addProjectButton.addEventListener('click', () => {\n        addProjectButton.style.display = 'none'\n        addProjectPopup.style.visibility= 'visible'\n    })\n\n    addProjectConfirm.addEventListener('click', () => {\n        let projectName = document.querySelector('#project-name').value;\n        let newProject = new _projects_js__WEBPACK_IMPORTED_MODULE_0__.Project(projectName)\n        newProject.add(projectName)\n        console.log(newProject.projects)\n    }\n        ) \n\n    addTaskButton.addEventListener('click', () => {\n        addTaskButton.style.display = 'none'\n        taskForm.style.visibility='visible'\n    })\n\n    taskSubmitButton.addEventListener('click', (e) => {\n        e.preventDefault();\n        let name = document.querySelector('#name').value\n        let description = document.querySelector('#description').value\n        const radioButtons = document.querySelectorAll('input[name=\"priority\"]');\n        let priority\n            for (const radioButton of radioButtons) {\n                if (radioButton.checked) {\n                    priority = radioButton.value;\n                    break;}}\n        let dueDate = document.querySelector('#dueDate').value\n        //create new task\n        let task = new _tasks_js__WEBPACK_IMPORTED_MODULE_1__.Tasks(name, description, priority, dueDate)\n        //store new task\n        _storage_js__WEBPACK_IMPORTED_MODULE_2__.Store.addTasks(task)\n    }\n    \n    )\n    }\n\n//# sourceURL=webpack://todolist/./src/dom-events.js?");
 
 /***/ }),
 
@@ -160,13 +160,33 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _nod
 
 /***/ }),
 
-/***/ "./src/project-constructor.js":
-/*!************************************!*\
-  !*** ./src/project-constructor.js ***!
-  \************************************/
+/***/ "./src/projects.js":
+/*!*************************!*\
+  !*** ./src/projects.js ***!
+  \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Project\": () => (/* binding */ Project)\n/* harmony export */ });\n/* harmony import */ var _dom_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-events */ \"./src/dom-events.js\");\n\n\nclass Project {\n    constructor(name) {\n        this.name = name\n        this.projects = []\n    }\n\n    add(name) {\n        this.projects.push(name)}\n}\n\n//# sourceURL=webpack://todolist/./src/project-constructor.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Project\": () => (/* binding */ Project)\n/* harmony export */ });\n/* harmony import */ var _dom_events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom-events */ \"./src/dom-events.js\");\n\n\nclass Project {\n    constructor(name) {\n        this.name = name\n        this.projects = []\n    }\n\n    add(name) {\n        this.projects.push(name)}\n}\n\n//# sourceURL=webpack://todolist/./src/projects.js?");
+
+/***/ }),
+
+/***/ "./src/storage.js":
+/*!************************!*\
+  !*** ./src/storage.js ***!
+  \************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Store\": () => (/* binding */ Store)\n/* harmony export */ });\nclass Store {\n    static getTasks() {\n        let tasks\n        if (localStorage.getItem('tasks') === null) {\n            tasks = []}\n        else {tasks = JSON.parse(localStorage.getItem('tasks'))}\n    return tasks\n    }\n\n    static addTasks(task) {\n        const tasks = Store.getTasks()\n        tasks.push(task)\n        localStorage.setItem('tasks', JSON.stringify(tasks))\n    }\n\n    static removeTask(name) {\n        const tasks = Store.getTasks()\n        tasks.forEach = (task, index) => {\n            if (task.name === name) {\n                books.splice(index, 1)\n            }\n        localStorage.getItem('tasks', JSON.stringify(tasks))\n        }\n    }\n}\n\n//# sourceURL=webpack://todolist/./src/storage.js?");
+
+/***/ }),
+
+/***/ "./src/tasks.js":
+/*!**********************!*\
+  !*** ./src/tasks.js ***!
+  \**********************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Tasks\": () => (/* binding */ Tasks)\n/* harmony export */ });\nclass Tasks {\n    constructor(name, description, priority = 'Low', dueDate = 'No date') {\n        this.name = name\n        this.description = description\n        this.priority = priority\n        this.dueDate = dueDate\n    }\n\n    setName(name) {\n        this.name = name\n    }\n\n    getName() {\n        return this.name\n    }\n\n    setDescription(description) {\n        this.description = description\n    }\n\n    getDescription() {\n        return this.description\n    }\n\n    setPriority(priority) {\n        this.priority = priority\n    }\n\n    getPriority() {\n        return this.priority\n    }\n\n    setDueDate(dueDate) {\n        this.dueDate = dueDate\n    }\n\n    getDueDate() {\n        return this.dueDate\n    }\n}\n\n//# sourceURL=webpack://todolist/./src/tasks.js?");
 
 /***/ }),
 
