@@ -1,6 +1,8 @@
 import { Project } from './projects.js'
 import { Tasks } from './tasks.js'
 import { Store } from './storage.js'
+import { add } from 'date-fns'
+import { UI } from './UI.js'
 
 const addProjectButton = document.querySelector('.add-project-button')
 const addProjectPopup = document.querySelector('#add-box')
@@ -43,6 +45,9 @@ export function domEvents() {
         let task = new Tasks(name, description, priority, dueDate)
         //store new task
         Store.addTasks(task)
+        addTaskButton.style.display = ''
+        taskForm.style.visibility = 'hidden'
+        UI.addTaskDisplay(task)
     }
     
     )
