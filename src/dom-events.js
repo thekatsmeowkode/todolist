@@ -12,7 +12,8 @@ const taskForm = document.querySelector('.task-form')
 const taskSubmitButton = document.querySelector('#task-submit')
 const form = document.querySelector('.popup-form')
 const taskButtons = document.getElementsByClassName('task-list')
-console.log(taskButtons)
+const editButton = document.querySelector('#edit-submit')
+
 // const tasks = Store.getTasks()
 
 export function domEvents() {
@@ -64,15 +65,32 @@ export function domEvents() {
                 event.target.parentNode.remove()
             };
             if (event.target.classList.contains('list-edit-button')) {
-                
+                document.querySelector('#edit-submit').style.visibility = 'visible'
+                taskSubmitButton.style.visibility= 'hidden'
                 let name = event.target.previousElementSibling.children[1].textContent
-                console.log(name)
-                Store.editItem(name)
+                UI.editItem(name)
             }
             if (event.target.id == 'task-list-task-name') {
                 console.log('view status')
             }
           } );
 
-    
+    editButton.addEventListener('click', (e) => {
+        e.preventDefault()
+        let name = e.target.parentElement.parentElement.children[1].value
+        Store.removeTask(name)
+        let name2 = document.querySelector('#name').value
+        let description = document.querySelector('#description').value
+        const radioButtons = document.querySelectorAll('input[name="priority"]');
+        let priority
+            for (const radioButton of radioButtons) {
+                if (radioButton.checked) {
+                    priority = radioButton.value;
+                    break;}}
+        let dueDate = document.querySelector('#dueDate').value
+        //create new task
+        let task = new Tasks(name2, description, priority, dueDate)
+        //store new task
+        Store.addTasks(task)
+    })
 }

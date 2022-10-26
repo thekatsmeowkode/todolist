@@ -26,4 +26,17 @@ export class UI {
         })
     }
 
+    static editItem(name) {
+        const tasks = Store.getTasks()
+        tasks.forEach((task, index) =>
+        {if (task.name === name) {
+            document.querySelector('#name').value = name
+            document.querySelector('#description').value = task.description  
+            document.querySelectorAll('input[name="priority"]').value = task.priority;
+            document.querySelector('#dueDate').value = task.dueDate
+        }
+        }
+        )
+        document.querySelector('.task-form').style.visibility = 'visible'
+    }
 }

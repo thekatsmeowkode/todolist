@@ -188,4 +188,27 @@ label {
     width:50%;
     margin-top: 2em;
     padding:1em;
+    cursor:pointer;
+}
+
+#cancel{
+    padding:1em;
+    margin-top:2em;
+    width: 50%;
+    cursor:pointer;
+}
+
+#edit-submit {
+    width:50%;
+    visibility:hidden;
+    padding:1em;
+    margin-top:2em;
+    cursor:pointer;
+}
+
+.form-buttons {
+    display:flex;
+    gap: 1em;
+    justify-content: center;
+    align-items: center;
 }
