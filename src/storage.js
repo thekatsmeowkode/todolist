@@ -21,10 +21,4 @@ export class Store {
             }})
         localStorage.setItem('tasks', JSON.stringify(tasks))
     }
-
-
-    //PROBLEM
-    
-    static submitEdit(name) {
-    }
 }

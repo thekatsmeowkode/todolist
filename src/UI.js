@@ -26,8 +26,9 @@ export class UI {
         })
     }
 
-    static editItem(name) {
+    static editItem(name, parent) {
         const tasks = Store.getTasks()
+        parent.remove()
         tasks.forEach((task, index) =>
         {if (task.name === name) {
             document.querySelector('#name').value = name
@@ -38,5 +39,6 @@ export class UI {
         }
         )
         document.querySelector('.task-form').style.visibility = 'visible'
+        Store.removeTask(name)
     }
 }
