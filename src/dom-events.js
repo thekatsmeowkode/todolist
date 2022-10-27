@@ -16,11 +16,12 @@ const taskButtons = document.getElementsByClassName('task-list')
 const editButton = document.querySelector('#edit-submit')
 const cancelButton = document.querySelector('#cancel')
 const projectHeader = document.querySelector('.project-header')
+const addTaskProjectButton = document.querySelector('.add-task-to-project-button')
 
 export function domEvents() {
     addProjectButton.addEventListener('click', () => {
         addProjectButton.style.display = 'none'
-        addProjectPopup.style.visibility= 'visible'
+        addProjectPopup.style.visibility = 'visible'
     })
 
     addProjectConfirm.addEventListener('click', () => {
@@ -31,13 +32,21 @@ export function domEvents() {
         UI.addProjectDisplay(newProject)
         addProjectPopup.style.visibility = 'hidden'
         addProjectButton.style.display = 'block'
-    }) 
+    })
 
     addTaskButton.addEventListener('click', () => {
         addTaskButton.style.visibility = 'hidden'
         cancelButton.style.visibility = 'visible'
         editButton.style.visibility = 'hidden'
-        taskForm.style.visibility='visible'
+        taskForm.style.visibility = 'visible'
+        taskSubmitButton.style.visibility = 'visible'
+    })
+
+    addTaskProjectButton.addEventListener('click', () => {
+        addTaskButton.style.visibility = 'hidden'
+        cancelButton.style.visibility = 'visible'
+        editButton.style.visibility = 'hidden'
+        taskForm.style.visibility = 'visible'
         taskSubmitButton.style.visibility = 'visible'
     })
 
@@ -47,65 +56,90 @@ export function domEvents() {
         let description = document.querySelector('#description').value
         const radioButtons = document.querySelectorAll('input[name="priority"]');
         let priority
-            for (const radioButton of radioButtons) {
-                if (radioButton.checked) {
-                    priority = radioButton.value;
-                    break;}}
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                priority = radioButton.value;
+                break;
+            }}
         let dueDate = document.querySelector('#dueDate').value
-        //create new task
-        let task = new Tasks(name, description, priority, dueDate)
-        //store new task
-        Store.addTasks(task)
-        addTaskButton.style.display = ''
-        taskForm.style.visibility = 'hidden'
-        editButton.style.visibility = 'hidden'
-        cancelButton.style.visibility = 'hidden'
-        taskSubmitButton.style.visibility = 'hidden'
-        UI.addTaskDisplay(task)
-        form.reset()
-        addTaskButton.style.visibility = 'visible'
-    }
+            //create new task
+            let task = new Tasks(name, description, priority, dueDate)
+            //store new task
+            if (projectHeader.textContent === 'Inbox') {
+                Store.addTasks(task)
+                addTaskButton.style.display = 'block'}
+            else {
+                Store.addTaskToProject(task)
+                addTaskButton.style.display = 'none'
+            }
+            UI.addTaskDisplay(task)
+            form.reset()
+            addTaskButton.style.display = ''
+            taskForm.style.visibility = 'hidden'
+            editButton.style.visibility = 'hidden'
+            cancelButton.style.visibility = 'hidden'
+            taskSubmitButton.style.visibility = 'hidden'
+
+           
+        }
     )
-    
+
     //convoluted way to access dynamically created task elements
-    document.body.addEventListener( 'click', function ( event ) {
-            if (event.target.classList.contains('list-close-button' )) 
-                { let name = event.target.previousElementSibling.previousElementSibling.children[1].textContent
+    document.body.addEventListener('click', function (event) {
+        if (event.target.classList.contains('list-close-button')) {
+            if (projectHeader.textContent === 'Inbox') {
+                let name = event.target.previousElementSibling.previousElementSibling.children[1].textContent
                 Store.removeTask(name);
+                event.target.parentNode.remove()}
+            else {
+                let projectName = projectHeader.textContent
+                let name = event.target.previousElementSibling.previousElementSibling.children[1].textContent
+                Store.removeTaskFromProject(projectName, name)
                 event.target.parentNode.remove()
-            };
-            if (event.target.classList.contains('list-edit-button')) {
-                editButton.style.visibility = 'visible'
-                cancelButton.style.visibility = 'visible'
-                taskSubmitButton.style.visibility= 'hidden'
+            }
+        };
+
+        if (event.target.classList.contains('list-edit-button')) {
+            editButton.style.visibility = 'visible'
+            cancelButton.style.visibility = 'visible'
+            taskSubmitButton.style.visibility = 'hidden'
+            if (projectHeader.textContent === 'Inbox') {
                 addTaskButton.style.visibility = 'hidden'
-                let parent = event.target.parentElement
-                let name = event.target.previousElementSibling.children[1].textContent
-                UI.editItem(name, parent)
             }
-            if (event.target.id == 'task-list-task-name') {
-                console.log('view status')
-            }
+            else {addTaskProjectButton.style.visibility = 'hidden'}
+            let parent = event.target.parentElement
+            let name = event.target.previousElementSibling.children[1].textContent
+            UI.editItem(name, parent)
+        }
+        if (event.target.id == 'task-list-task-name') {
+            console.log('view status')
+        }
 
-            if (event.target.classList.contains('project-close-button')) {
-                {let name = event.target.parentElement.children[0].children[1].textContent
-                    console.log(name)
+        if (event.target.classList.contains('project-close-button')) {
+            {
+                let name = event.target.parentElement.children[0].children[1].textContent
+                console.log(name)
                 Store.removeProject(name)
-                event.target.parentElement.remove()}
+                event.target.parentElement.remove()
             }
+        }
 
-            if (event.target.classList.contains('project-button')) {
-                let name = event.target.children[0].children[1].textContent
-                projectHeader.textContent = name
-                UI.displayTasksInProjects(name)
-            }
+        if (event.target.classList.contains('project-button')) {
+            addTaskButton.style.display = 'none'
+            addTaskProjectButton.style.visibility = 'visible'
+            let name = event.target.children[0].children[1].textContent
+            projectHeader.textContent = name
+            UI.displayTasksInProjects(name)
+        }
 
-            if (event.target.id == 'project-button') {
-                let name = event.target.textContent
-                projectHeader.textContent = name
-                UI.displayTasksInProjects(name)
-            }
-          } );
+        if (event.target.id == 'project-button') {
+            addTaskButton.style.display = 'none'
+            addTaskProjectButton.style.visibility = 'visible'
+            let name = event.target.textContent
+            projectHeader.textContent = name
+            UI.displayTasksInProjects(name)
+        }
+    });
 
     editButton.addEventListener('click', (e) => {
         e.preventDefault()
@@ -114,15 +148,21 @@ export function domEvents() {
         let description = document.querySelector('#description').value
         const radioButtons = document.querySelectorAll('input[name="priority"]');
         let priority
-            for (const radioButton of radioButtons) {
-                if (radioButton.checked) {
-                    priority = radioButton.value;
-                    break;}}
+        for (const radioButton of radioButtons) {
+            if (radioButton.checked) {
+                priority = radioButton.value;
+                break;
+            }
+        }
         let dueDate = document.querySelector('#dueDate').value
         //create new task
         let task = new Tasks(name2, description, priority, dueDate)
         //store new task
-        Store.addTasks(task)
+        if (projectHeader.textContent === 'Inbox') {
+            Store.addTasks(task)}
+        else {
+            addTaskProjectButton.style.visibility = 'visible'
+            Store.addTaskToProject(task)}
         UI.addTaskDisplay(task)
         form.reset()
         taskForm.style.visibility = 'hidden'

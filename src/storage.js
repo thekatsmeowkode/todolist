@@ -30,11 +30,37 @@ export class Store {
         localStorage.setItem('projects', JSON.stringify(projects))}
     }
 
+    static addTaskToProject(task) {
+        let projectName = document.querySelector('.project-header').textContent
+        console.log(projectName)
+        const projects = Store.getProjects()
+        projects.forEach((project) => {
+            if (project.name === projectName) {
+                project.taskList.push(task)
+                localStorage.setItem('projects', JSON.stringify(projects))
+            }
+        })
+    }
+
     static removeProject(name) {
         const projects = Store.getProjects()
         projects.forEach((project, index) => {
             if (project.name === name) {
                 projects.splice(index, 1)
+            }
+        })
+        localStorage.setItem('projects', JSON.stringify(projects))
+    }
+
+    static removeTaskFromProject(projectName, name) {
+        const projects = Store.getProjects()
+        projects.forEach((project) => {
+            if (project.name === projectName) {
+                project.taskList.forEach((task, index) => {
+                    if (task.name === name) {
+                        project.taskList.splice(index, 1)
+                    }
+                })
             }
         })
         localStorage.setItem('projects', JSON.stringify(projects))
@@ -48,4 +74,5 @@ export class Store {
         else {projects = JSON.parse(localStorage.getItem('projects'))}
         return projects
     }
+
 }

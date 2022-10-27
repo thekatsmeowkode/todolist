@@ -70,6 +70,12 @@
     padding: 1em;
 }
 
+.add-task-to-project-button {
+    visibility:hidden;
+    margin:1em;
+    padding:1em;
+}
+
 .main-content {
     width:100vw;
     display:flex;

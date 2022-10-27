@@ -1,6 +1,9 @@
 import { Store } from "./storage"
 
+
+
 export class UI {
+
     static addTaskDisplay(task) {
         const addTaskButton = document.querySelector('.add-task-button')
         const container = document.querySelector('.task-container')
@@ -34,7 +37,7 @@ export class UI {
     }
 
     static clearAllTasks() {
-        let container = document.getElementsByClassName('task-container')
+        let container = document.getElementsByClassName('task-list')
         Array.from(container).forEach(n => n.remove())
     }
 
@@ -42,31 +45,47 @@ export class UI {
         this.clearAllTasks()
         let storage = Store.getProjects()
         storage.forEach((project) => {
-        if (project.name === name) {
-            let list = project.taskList
-            list.forEach((item) => {
-                UI.addTaskDisplay(item)
+            if (project.name === name) {
+                let list = project.taskList
+                list.forEach((item) => {
+                    UI.addTaskDisplay(item)
             })
         }})
     }
 
     static editItem(name, parent) {
-        const tasks = Store.getTasks()
+        let projectHeader = document.querySelector('.project-header')
+        if (projectHeader.textContent === 'Inbox') 
+        {const tasks = Store.getTasks()
+            tasks.forEach((task) =>
+            {if (task.name === name) {
+                document.querySelector('#name').value = name
+                document.querySelector('#description').value = task.description  
+                document.querySelectorAll('input[name="priority"]').value = task.priority;
+                document.querySelector('#dueDate').value = task.dueDate
+            }})
+            Store.removeTask(name)}
+        else {
+            let projectName = projectHeader.textContent
+            const projects = Store.getProjects()
+            projects.forEach((project) => {
+            if (project.name === projectName) {
+                project.taskList.forEach((task, index) => {
+                    if (task.name === name) {
+                        document.querySelector('#name').value = name
+                        document.querySelector('#description').value = task.description  
+                        document.querySelectorAll('input[name="priority"]').value = task.priority;
+                        document.querySelector('#dueDate').value = task.dueDate
+                    }
+                })}})
+            Store.removeTaskFromProject(projectName, name)
+        }
         parent.remove()
-        tasks.forEach((task) =>
-        {if (task.name === name) {
-            document.querySelector('#name').value = name
-            document.querySelector('#description').value = task.description  
-            document.querySelectorAll('input[name="priority"]').value = task.priority;
-            document.querySelector('#dueDate').value = task.dueDate
-        }
-        }
-        )
         document.querySelector('.task-form').style.visibility = 'visible'
-        Store.removeTask(name)
     }
 
     static addProjectDisplay(project) {
+        if (project.name !== '') {
         let name = project.name
         const newButton = document.createElement('button')
         newButton.classList.add('project-button')
@@ -79,6 +98,6 @@ export class UI {
             </div>`
         let container = document.querySelector('.project-list')
         let addButton = document.querySelector('.add-project-div')
-        container.insertBefore(newButton, addButton)
+        container.insertBefore(newButton, addButton)}
     }
 }
