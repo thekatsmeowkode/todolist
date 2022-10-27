@@ -3,10 +3,10 @@ import { Store } from "./storage"
 export class UI {
     static addTaskDisplay(task) {
         const addTaskButton = document.querySelector('.add-task-button')
-        const container = document.querySelector('.main-content')
+        const container = document.querySelector('.task-container')
         const newTask = document.createElement('button')
         newTask.classList.add('task-list')
-        container.insertBefore(newTask, addTaskButton)
+        container.appendChild(newTask)
         newTask.innerHTML = `<div class="task-list-text">
         <input type="checkbox" class="checkbox">
         <span id="task-list-task-name">${task.name}</span>
@@ -33,8 +33,21 @@ export class UI {
         })
     }
 
-    static DisplayTasksInProjects() {
-        let storage 
+    static clearAllTasks() {
+        let container = document.getElementsByClassName('task-container')
+        Array.from(container).forEach(n => n.remove())
+    }
+
+    static displayTasksInProjects(name) {
+        this.clearAllTasks()
+        let storage = Store.getProjects()
+        storage.forEach((project) => {
+        if (project.name === name) {
+            let list = project.taskList
+            list.forEach((item) => {
+                UI.addTaskDisplay(item)
+            })
+        }})
     }
 
     static editItem(name, parent) {
@@ -59,7 +72,7 @@ export class UI {
         newButton.classList.add('project-button')
         newButton.innerHTML = `<div class="project-button-name">
             <i class="fa-solid fa-bars"></i>
-            <span>${name}</span>
+            <span id='project-button'>${name}</span>
             </div>
             <div class="project-close-button">
             <i class="fa-solid fa-xmark"></i>

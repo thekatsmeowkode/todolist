@@ -97,7 +97,13 @@ export function domEvents() {
             if (event.target.classList.contains('project-button')) {
                 let name = event.target.children[0].children[1].textContent
                 projectHeader.textContent = name
-                UI.addTaskDisplay
+                UI.displayTasksInProjects(name)
+            }
+
+            if (event.target.id == 'project-button') {
+                let name = event.target.textContent
+                projectHeader.textContent = name
+                UI.displayTasksInProjects(name)
             }
           } );
 
