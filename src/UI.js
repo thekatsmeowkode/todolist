@@ -26,10 +26,21 @@ export class UI {
         })
     }
 
+    static displayAllProjects() {
+        let storage = Store.getProjects()
+        storage.forEach((project) => {
+            UI.addProjectDisplay(project)
+        })
+    }
+
+    static DisplayTasksInProjects() {
+        let storage 
+    }
+
     static editItem(name, parent) {
         const tasks = Store.getTasks()
         parent.remove()
-        tasks.forEach((task, index) =>
+        tasks.forEach((task) =>
         {if (task.name === name) {
             document.querySelector('#name').value = name
             document.querySelector('#description').value = task.description  
@@ -40,5 +51,21 @@ export class UI {
         )
         document.querySelector('.task-form').style.visibility = 'visible'
         Store.removeTask(name)
+    }
+
+    static addProjectDisplay(project) {
+        let name = project.name
+        const newButton = document.createElement('button')
+        newButton.classList.add('project-button')
+        newButton.innerHTML = `<div class="project-button-name">
+            <i class="fa-solid fa-bars"></i>
+            <span>${name}</span>
+            </div>
+            <div class="project-close-button">
+            <i class="fa-solid fa-xmark"></i>
+            </div>`
+        let container = document.querySelector('.project-list')
+        let addButton = document.querySelector('.add-project-div')
+        container.insertBefore(newButton, addButton)
     }
 }

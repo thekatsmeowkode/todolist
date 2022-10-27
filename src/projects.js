@@ -1,11 +1,10 @@
-import { domEvents } from "./dom-events"
 
 export class Project {
     constructor(name) {
         this.name = name
-        this.projects = []
+        this.taskList = []
     }
 
     add(name) {
-        this.projects.push(name)}
+        this.taskList.push(name)}
 }

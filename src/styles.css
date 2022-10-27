@@ -6,10 +6,13 @@
 
 .header {
     height: 10vh;
-    width:100%;
     background-color:#37706a;
     display:flex;
-    align-items: center;
+    align-items:center;
+    gap:30%;
+}
+
+.project-header {
 }
 
 .title {
@@ -35,6 +38,7 @@
     padding:1em;
     width:80%;
     margin: 1em;
+    gap: 1em;
 }
 
 .sidebar {

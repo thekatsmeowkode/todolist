@@ -5,6 +5,7 @@ import { add, format } from 'date-fns'
 import { UI } from './UI.js'
 
 const addProjectButton = document.querySelector('.add-project-button')
+const projectButtons = document.getElementsByClassName('project-button')
 const addProjectPopup = document.querySelector('#add-box')
 const addProjectConfirm = document.querySelector('.popup-add')
 const addTaskButton = document.querySelector('.add-task-button')
@@ -14,8 +15,7 @@ const form = document.querySelector('.popup-form')
 const taskButtons = document.getElementsByClassName('task-list')
 const editButton = document.querySelector('#edit-submit')
 const cancelButton = document.querySelector('#cancel')
-
-// const tasks = Store.getTasks()
+const projectHeader = document.querySelector('.project-header')
 
 export function domEvents() {
     addProjectButton.addEventListener('click', () => {
@@ -25,11 +25,13 @@ export function domEvents() {
 
     addProjectConfirm.addEventListener('click', () => {
         let projectName = document.querySelector('#project-name').value;
+        console.log(projectName)
         let newProject = new Project(projectName)
-        newProject.add(projectName)
-        console.log(newProject.projects)
-    }
-        ) 
+        Store.addProject(newProject)
+        UI.addProjectDisplay(newProject)
+        addProjectPopup.style.visibility = 'hidden'
+        addProjectButton.style.display = 'block'
+    }) 
 
     addTaskButton.addEventListener('click', () => {
         addTaskButton.style.visibility = 'hidden'
@@ -84,6 +86,19 @@ export function domEvents() {
             if (event.target.id == 'task-list-task-name') {
                 console.log('view status')
             }
+
+            if (event.target.classList.contains('project-close-button')) {
+                {let name = event.target.parentElement.children[0].children[1].textContent
+                    console.log(name)
+                Store.removeProject(name)
+                event.target.parentElement.remove()}
+            }
+
+            if (event.target.classList.contains('project-button')) {
+                let name = event.target.children[0].children[1].textContent
+                projectHeader.textContent = name
+                UI.addTaskDisplay
+            }
           } );
 
     editButton.addEventListener('click', (e) => {
@@ -118,4 +133,6 @@ export function domEvents() {
         addTaskButton.style.visibility = 'visible'
         taskSubmitButton.style.visiblity = 'hidden'
     })
+
+
 }

@@ -21,4 +21,31 @@ export class Store {
             }})
         localStorage.setItem('tasks', JSON.stringify(tasks))
     }
+
+    static addProject(project) {
+        if (project.name === '') {alert('Must name project')}
+        else {
+        const projects = Store.getProjects()
+        projects.push(project)
+        localStorage.setItem('projects', JSON.stringify(projects))}
+    }
+
+    static removeProject(name) {
+        const projects = Store.getProjects()
+        projects.forEach((project, index) => {
+            if (project.name === name) {
+                projects.splice(index, 1)
+            }
+        })
+        localStorage.setItem('projects', JSON.stringify(projects))
+    }
+
+    static getProjects() {
+        let projects
+        if (localStorage.getItem('projects') == null) {
+            projects = []
+        }
+        else {projects = JSON.parse(localStorage.getItem('projects'))}
+        return projects
+    }
 }

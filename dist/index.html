@@ -15,6 +15,7 @@
 <body>
     <div class="header">
         <h1 class="title">To-Do List</h1>
+        <span class="project-header">project name</span>
     </div>
     <div class="container">
         <div class="sidebar">
@@ -45,7 +46,7 @@
                         </div>
                     </button>
                 </div>
-                <div>
+                <div class="add-project-div">
                     <button class="add-project-button">
                         <i class="fa-solid fa-plus"></i>
                         <span>Add Project</span>
@@ -91,8 +92,8 @@
                     <input type="date" id="dueDate">
                     <div class="form-buttons">
                         <input type="submit" id="task-submit" value="Submit">
-                        <input type="submit" id="cancel" value="Cancel">
-                        <input type="submit" id="edit-submit" value="Edit">
+                        <input type="submit" id="cancel" value="Delete">
+                        <input type="submit" id="edit-submit" value="Add">
                     </div>
                 </form>
             </div>
