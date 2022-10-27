@@ -70,7 +70,7 @@ export class UI {
             const projects = Store.getProjects()
             projects.forEach((project) => {
             if (project.name === projectName) {
-                project.taskList.forEach((task, index) => {
+                project.taskList.forEach((task) => {
                     if (task.name === name) {
                         document.querySelector('#name').value = name
                         document.querySelector('#description').value = task.description  

@@ -17,8 +17,16 @@ const editButton = document.querySelector('#edit-submit')
 const cancelButton = document.querySelector('#cancel')
 const projectHeader = document.querySelector('.project-header')
 const addTaskProjectButton = document.querySelector('.add-task-to-project-button')
+const inboxButton = document.querySelector('.default-list')
 
 export function domEvents() {
+    inboxButton.addEventListener('click', () => {
+        if (projectHeader.textContent !== 'Inbox') {
+            UI.clearAllTasks()
+            UI.displayAllTasks()
+            projectHeader.textContent = 'Inbox'}
+        if (projectHeader.textContent === 'Inbox') {return}})
+
     addProjectButton.addEventListener('click', () => {
         addProjectButton.style.display = 'none'
         addProjectPopup.style.visibility = 'visible'
@@ -26,7 +34,6 @@ export function domEvents() {
 
     addProjectConfirm.addEventListener('click', () => {
         let projectName = document.querySelector('#project-name').value;
-        console.log(projectName)
         let newProject = new Project(projectName)
         Store.addProject(newProject)
         UI.addProjectDisplay(newProject)
@@ -176,8 +183,11 @@ export function domEvents() {
         taskForm.style.visibility = 'hidden'
         editButton.style.visibility = 'hidden'
         cancelButton.style.visibility = 'hidden'
-        addTaskButton.style.visibility = 'visible'
-        taskSubmitButton.style.visiblity = 'hidden'
+        taskSubmitButton.style.visibility = 'hidden'
+        if (projectHeader.textContent === 'Inbox') {
+            addTaskButton.style.visibility = 'visible'}
+        else {addTaskProjectButton.style.visibility = 'visible'}
+        
     })
 
 
