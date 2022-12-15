@@ -15,14 +15,14 @@
 <body>
     <div class="header">
         <h1 class="title">To-Do List</h1>
-        <span class="project-header">project name</span>
+        <span class="project-header">Inbox</span>
     </div>
     <div class="container">
         <div class="sidebar">
             <div class="my-list">
                 <button class="list-button default-list">
                     <i class="fa-solid fa-box-open"></i>
-                    <span>Default</span>
+                    <span>Inbox</span>
                 </button>
                 <button class="list-button week-list">
                     <i class="fa-solid fa-calendar"></i>
@@ -36,7 +36,7 @@
             <div class="project-list">
                 <h3 class="project-header">Projects</h3>
                 <div class="project-list">
-                    <button class="project-button">
+                    <!-- <button class="project-button">
                         <div class="project-button-name">
                             <i class="fa-solid fa-bars"></i>
                             <span>Default</span>
@@ -44,7 +44,7 @@
                         <div class="project-close-button">
                             <i class="fa-solid fa-xmark"></i>
                         </div>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="add-project-div">
                     <button class="add-project-button">
@@ -63,9 +63,15 @@
             </div>
         </div>
         <div class="main-content">
+            <div class = "task-container">
+            </div>
             <button class="add-task-button">
                 <i class="fa-solid fa-plus"></i>
                 <span>Add Task</span>
+            </button>
+            <button class="add-task-to-project-button">
+                <i class="fa-solid fa-plus"></i>
+                <span>Add Task to Project</span>
             </button>
             <div class="task-form">
                 <form class="popup-form">

@@ -74,7 +74,8 @@ export function domEvents() {
             //store new task
             if (projectHeader.textContent === 'Inbox') {
                 Store.addTasks(task)
-                addTaskButton.style.display = 'block'}
+                addTaskButton.style.display = 'block'
+                addTaskButton.style.visibility = 'visible'}
             else {
                 Store.addTaskToProject(task)
                 addTaskButton.style.display = 'none'
@@ -112,6 +113,7 @@ export function domEvents() {
             taskSubmitButton.style.visibility = 'hidden'
             if (projectHeader.textContent === 'Inbox') {
                 addTaskButton.style.visibility = 'hidden'
+                addTaskProjectButton.style.visibility = 'hidden'
             }
             else {addTaskProjectButton.style.visibility = 'hidden'}
             let parent = event.target.parentElement
@@ -166,7 +168,8 @@ export function domEvents() {
         let task = new Tasks(name2, description, priority, dueDate)
         //store new task
         if (projectHeader.textContent === 'Inbox') {
-            Store.addTasks(task)}
+            Store.addTasks(task)
+            addTaskButton.style.visibility = 'visible'}
         else {
             addTaskProjectButton.style.visibility = 'visible'
             Store.addTaskToProject(task)}
@@ -175,7 +178,6 @@ export function domEvents() {
         taskForm.style.visibility = 'hidden'
         editButton.style.visibility = 'hidden'
         cancelButton.style.visibility = 'hidden'
-        addTaskButton.style.visibility = 'visible'
     })
 
     cancelButton.addEventListener('click', (e) => {
